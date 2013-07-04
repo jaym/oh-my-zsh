@@ -1,4 +1,8 @@
 # https://github.com/blinks zsh theme
+#
+function _virtualenv_prompt_info {
+    [[ -n $(whence virtualenv_prompt_info) ]] && virtualenv_prompt_info
+}
 
 function _prompt_char() {
   if $(git rev-parse --is-inside-work-tree >/dev/null 2>&1); then
@@ -23,8 +27,11 @@ ZSH_THEME_GIT_PROMPT_SUFFIX="%{%f%k%b%K{${bkg}}%B%F{green}%}]"
 ZSH_THEME_GIT_PROMPT_DIRTY=" %{%F{red}%}*%{%f%k%b%}"
 ZSH_THEME_GIT_PROMPT_CLEAN=""
 
+ZSH_THEME_VIRTUAL_ENV_PROMPT_PREFIX=" (venv:%{%B%F{blue}%}"
+ZSH_THEME_VIRTUAL_ENV_PROMPT_SUFFIX="%{%f%k%b%K{${bkg}}%B%F{green}%})"
+
 PROMPT='%{%f%k%b%}
-%{%K{${bkg}}%B%F{green}%}%n%{%B%F{blue}%}@%{%B%F{cyan}%}%m%{%B%F{green}%} %{%b%F{yellow}%K{${bkg}}%}%~%{%B%F{green}%}$(git_prompt_info)%E%{%f%k%b%}
+%{%K{${bkg}}%B%F{green}%}%n%{%B%F{blue}%}@%{%B%F{cyan}%}%m%{%B%F{green}%} %{%b%F{yellow}%K{${bkg}}%}%~%{%B%F{green}%}$(virtualenv_prompt_info)$(git_prompt_info)%E%{%f%k%b%}
 %{%K{${bkg}}%}$(_prompt_char)%{%K{${bkg}}%} %#%{%f%k%b%} '
 
 RPROMPT='!%{%B%F{cyan}%}%!%{%f%k%b%}'
